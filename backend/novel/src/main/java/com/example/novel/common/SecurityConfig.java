@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .requestMatchers("swagger-ui/**", "/v3/api-docs/**").permitAll()
                 // 이하 경로의 get매핑은 다 허용
                 .requestMatchers(HttpMethod.GET, "/api/novels/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/members/register").permitAll()
                 .anyRequest().authenticated());
 
         http.csrf(csrf -> csrf.disable());

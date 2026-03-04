@@ -17,3 +17,10 @@ export const postLogin = async (loginParam: LoginForm) => {
   console.log("서버 도착", res);
   return res.data;
 };
+
+// 회원가입 post
+export const postRegister = async (registerParam: LoginForm) => {
+  const res = await axios.post(`${API_SERVER_HOST}/register`, registerParam);
+  console.log("서버 도착", res);
+  return res.data;
+};

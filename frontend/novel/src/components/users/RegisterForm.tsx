@@ -1,6 +1,26 @@
+import React from "react";
+import { postRegister } from "../../apis/userApis";
+
 function RegisterForm() {
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+  const [form, setForm] = React.useState({
+    email: "",
+    password: "",
+    nickname: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await postRegister(form);
+      console.log("회원가입 성공", res);
+    } catch (error) {
+      console.error("회원가입 실패", error);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
   return (
     <>
       <form className="mt-6 flex flex-col gap-3" onSubmit={handleSubmit}>

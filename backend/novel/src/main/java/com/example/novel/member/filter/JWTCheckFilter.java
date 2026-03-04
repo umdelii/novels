@@ -58,6 +58,10 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             return true;
         }
 
+        if (path.equals("/api/members/register") && request.getMethod().equals("POST")) {
+            return true;
+        }
+
         return false;
     }
 
@@ -94,7 +98,6 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                         password, memberDTO.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-                filterChain.doFilter(request, response);
             } catch (Exception e) {
                 log.error("JWT token error");
                 log.error(e.getMessage());
@@ -106,8 +109,11 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                 PrintWriter printWriter = response.getWriter();
                 printWriter.println(msg);
                 printWriter.close();
+
+                return;
             }
         }
+        filterChain.doFilter(request, response);
 
     }
 }
